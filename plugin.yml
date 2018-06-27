@@ -1,0 +1,6 @@
+main: net.farugames.buildbattle.Main
+name: BuildBattle
+version: 1.0.0
+author: ChocoIG
+commands:
+    gamestart:
