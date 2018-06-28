@@ -6,6 +6,7 @@ import org.bukkit.plugin.PluginManager;
 
 import net.farugames.buildbattle.listeners.entity.EntityDamageListener;
 import net.farugames.buildbattle.listeners.entity.FoodLevelChangeListener;
+import net.farugames.buildbattle.listeners.inventory.InventoryClickListener;
 import net.farugames.buildbattle.listeners.players.PlayerChatListener;
 import net.farugames.buildbattle.listeners.players.PlayerDropListener;
 import net.farugames.buildbattle.listeners.players.PlayerInteractListener;
@@ -30,6 +31,8 @@ public class ListenerManager {
 
 		pluginManager.registerEvents(new EntityDamageListener(), plugin);
 		pluginManager.registerEvents(new FoodLevelChangeListener(), plugin);
+		
+		pluginManager.registerEvents(new InventoryClickListener(), plugin);
 
 		pluginManager.registerEvents(new PlayerJoinListener(), plugin);
 		pluginManager.registerEvents(new PlayerQuitListener(), plugin);

@@ -2,15 +2,18 @@ package net.farugames.buildbattle.managers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import net.farugames.buildbattle.GameStatus;
 import net.farugames.buildbattle.Main;
+import net.farugames.buildbattle.PluginMethods;
 import net.farugames.buildbattle.arenas.Arena;
 import net.farugames.buildbattle.arenas.ArenaManager;
 import net.farugames.buildbattle.arenas.ArenaTheme;
 import net.farugames.buildbattle.boards.ScoreboardManager;
 import net.farugames.buildbattle.runnables.GameRunnable;
+import net.farugames.buildbattle.utils.ItemBuilder;
 import net.farugames.buildbattle.utils.TitleManager;
 
 public class GameManager {
@@ -38,6 +41,7 @@ public class GameManager {
 			op.sendMessage("§f[§d?§f] §fLa partie vient de commencer ! Construisez un(e) §a" + ArenaTheme.theme
 					+ " §fet gagnez grâce à vos talents d'artiste !");
 			op.sendMessage("");
+			op.getInventory().setItem(8, new ItemBuilder().type(Material.NETHER_STAR).name("§bOptions" + PluginMethods.getRightClick()).build());
 		}
 	}
 }

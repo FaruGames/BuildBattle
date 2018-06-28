@@ -27,20 +27,20 @@ public class PlayerJoinListener implements Listener {
 		/* UN STATUS AUTRE QUE LE LOBBY */
 		if (!(GameStatus.isStatus(GameStatus.LOBBY))) {
 			event.setJoinMessage(null);
-			p.kickPlayer(ChatColor.RED + "La partie est dÃ©jÃ Â  en cours.");
+			p.kickPlayer(ChatColor.RED + "La partie est déjà  en cours.");
 			return;
 		}
 
 		p.sendMessage("");
-		p.sendMessage(Main.centerText("Â§f[Â§d?Â§f] Informations sur vos statistiques"));
+		p.sendMessage(Main.centerText("§f[§d?§f] Informations sur vos statistiques"));
 		p.sendMessage("");
-		p.sendMessage(Main.centerText("Â§eVous Ãªtes niveau Â§6" + "0" + "Â§e."));
-		p.sendMessage("    Â§7Classement: Â§bhttps://stats.farugames.net/player/" + p.getName());
+		p.sendMessage(Main.centerText("§eVous êtes niveau §6" + "0" + "§e."));
+		p.sendMessage("    §7Classement: §bhttps://stats.farugames.net/player/" + p.getName());
 		p.sendMessage("");
 
-		event.setJoinMessage(PluginMethods.getChatPrefix() + "Â§7" + p.getName() + " Â§ea rejoint la partie Â§a("
+		event.setJoinMessage(PluginMethods.getChatPrefix() + "§7" + p.getName() + " §ea rejoint la partie §a("
 				+ Bukkit.getOnlinePlayers().size() + "/" + Main.MAXPLAYER + ")");
-		TitleManager.sendActionBar(p, "Â§2Developer: Â§aEtor");
+		TitleManager.sendActionBar(p, "§2Developer: §aEtor");
 
 		/* PARAMETRES */
 		p.setGameMode(GameMode.ADVENTURE);

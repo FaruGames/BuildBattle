@@ -27,7 +27,7 @@ public class GameRunnable extends BukkitRunnable {
 		
 		/* SETTINGS */
 		for(Player player : Bukkit.getOnlinePlayers()) {
-			TitleManager.sendActionBar(player, "§7§lLancement des votes dans: §e§l" + new SimpleDateFormat("mm:ss").format(new Date(timer * 1000)));
+			TitleManager.sendActionBar(player, "§d§lLancement des votes dans: §e§l" + new SimpleDateFormat("mm:ss").format(new Date(timer * 1000)));
 			if(ScoreboardManager.scoreboardGame.containsKey(player)) {
 				ScoreboardManager.scoreboardGame.get(player).setLine(2, "§7Temps: §b" + new SimpleDateFormat("mm:ss").format(new Date(GameRunnable.timer * 1000)));
 				ScoreboardManager.scoreboardGame.get(player).setLine(6, "§7Joueurs: §9" + Bukkit.getOnlinePlayers().size());
