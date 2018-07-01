@@ -24,6 +24,9 @@ public class ArenaTheme {
 		themes.add("Dragon");
 		themes.add("Laboratoire");
 		themes.add("Serpent");
+		themes.add("Nether");
+		themes.add("Donjon");
+		themes.add("Télévision");
 		
 		/* RANDOM */
 		Random random = new Random();

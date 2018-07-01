@@ -26,13 +26,18 @@ public class GameRunnable extends BukkitRunnable {
 		}
 		
 		/* SETTINGS */
-		for(Player player : Bukkit.getOnlinePlayers()) {
-			TitleManager.sendActionBar(player, "§d§lLancement des votes dans: §e§l" + new SimpleDateFormat("mm:ss").format(new Date(timer * 1000)));
-			if(ScoreboardManager.scoreboardGame.containsKey(player)) {
-				ScoreboardManager.scoreboardGame.get(player).setLine(2, "§7Temps: §b" + new SimpleDateFormat("mm:ss").format(new Date(GameRunnable.timer * 1000)));
-				ScoreboardManager.scoreboardGame.get(player).setLine(6, "§7Joueurs: §9" + Bukkit.getOnlinePlayers().size());
+		for(Player op : Bukkit.getOnlinePlayers()) {
+			TitleManager.sendActionBar(op, "§9§lLancement des votes dans: §d§l" + new SimpleDateFormat("mm:ss").format(new Date(timer * 1000)));
+			if(ScoreboardManager.scoreboardGame.containsKey(op)) {
+				ScoreboardManager.scoreboardGame.get(op).setLine(2, "§7Temps: §b" + new SimpleDateFormat("mm:ss").format(new Date(GameRunnable.timer * 1000)));
+				ScoreboardManager.scoreboardGame.get(op).setLine(6, "§7Joueurs: §9" + Bukkit.getOnlinePlayers().size());
+				if((timer == 60) || (timer == 120) || (timer == 180) || (timer == 240) || (timer == 300) || (timer == 360) || (timer == 420)){
+					TitleManager.sendTitle(op, "§9" + new SimpleDateFormat("m").format(new Date(GameRunnable.timer * 1000)) + " §9minutes" , "§bremaining !", 20);
+				}
 			}
 		}
+		
+		
 		
 		timer--;
 	}

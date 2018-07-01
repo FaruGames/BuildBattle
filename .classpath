@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Antoine Gaming/Desktop/Dev Java/[Waterfall] local1/plugins/spigot.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Antoine Gaming/Desktop/Dev Java/[Waterfall] local1/plugins/faru-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

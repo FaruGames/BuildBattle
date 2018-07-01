@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 import net.farugames.buildbattle.GameStatus;
 import net.farugames.buildbattle.Main;
@@ -26,24 +27,37 @@ public class PlayerInteractListener implements Listener {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
-		if(GameStatus.isStatus(GameStatus.GAME)) {
-			if (e.getAction().equals(Action.LEFT_CLICK_AIR)) {
+		ItemStack i = e.getItem();
+		Action a = e.getAction();
+		if (GameStatus.isStatus(GameStatus.GAME)) {
+			if (a.equals(Action.LEFT_CLICK_AIR)) {
 				Block b = p.getTargetBlock((Set<Material>) null, 200);
 				Location loc = b.getLocation();
-				if(Main.instance.isCancelled(p, loc) == false) {
+				if (Main.instance.isCancelled(p, loc) == false) {
 					p.getWorld().getBlockAt(loc).setType(Material.AIR);
+				}
+			}
+			if (a.equals(Action.RIGHT_CLICK_AIR) || a.equals(Action.RIGHT_CLICK_BLOCK)) {
+				switch (i.getType()) {
+				case NETHER_STAR:
+					if (i.getItemMeta().getDisplayName().equals("§bOptions" + PluginMethods.getRightClick())) {
+						e.setCancelled(true);
+						p.sendMessage("options");
+					}
+					break;
+				default:
+					break;
 				}
 			}
 		}
 		if (GameStatus.isStatus(GameStatus.VOTE)) {
-			if (e.getItem() != null) {
-				if (e.getItem().getType() == null)
+			if (i != null) {
+				if (i.getType() == null)
 					return;
-				if ((e.getAction().equals(Action.RIGHT_CLICK_AIR))
-						|| (e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
-					if (e.getItem().getType() != Material.AIR) {
+				if ((a.equals(Action.RIGHT_CLICK_AIR)) || (a.equals(Action.RIGHT_CLICK_BLOCK))) {
+					if (i.getType() != Material.AIR) {
 						e.setCancelled(true);
-						if (e.getItem().getType().equals(Material.STAINED_CLAY)) {
+						if (i.getType().equals(Material.STAINED_CLAY)) {
 
 							UUID last = RatingRunnable.actual;
 
@@ -54,7 +68,7 @@ public class PlayerInteractListener implements Listener {
 								return;
 							}
 
-							short data = e.getItem().getDurability();
+							short data = i.getDurability();
 
 							/* SUPER MOCHE */
 							if (data == (short) 14) {
@@ -86,13 +100,14 @@ public class PlayerInteractListener implements Listener {
 								RatingRunnable.getRatePointByUUID(last).actualRate.put(p.getUniqueId(), 30);
 							}
 
-							String voteName = e.getItem().getItemMeta().getDisplayName().replace(rightclick, "");
+							String voteName = i.getItemMeta().getDisplayName().replace(rightclick, "");
 							p.sendMessage(PluginMethods.getChatPrefix() + "§eVous venez de voter: " + voteName);
 						}
 					}
 				}
 			}
 		}
+
 	}
 
 }
