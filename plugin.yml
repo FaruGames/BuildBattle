@@ -1,6 +1,7 @@
 main: net.farugames.buildbattle.Main
 name: BuildBattle
-version: 1.0.2
+version: 1.0.4
 author: ChocoIG
+depends: [FaruGamesData, FaruGamesAPI]
 commands:
     gamestart:

@@ -13,6 +13,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import net.farugames.api.spigot.player.FaruPlayer;
+import net.farugames.api.spigot.player.rank.Rank;
 import net.farugames.buildbattle.GameStatus;
 import net.farugames.buildbattle.Main;
 import net.farugames.buildbattle.PluginMethods;
@@ -67,21 +69,24 @@ public class RatingRunnable extends BukkitRunnable {
 			for(Entry<UUID, Integer> winner : filtre.entrySet()) {
 				UUID winUUID = winner.getKey();
 				String winName = ArenaManager.names.get(winUUID);
+				FaruPlayer faruWin = FaruPlayer.getPlayer(winUUID);
+				Player fw = faruWin.getPlayer();
+				Rank r = faruWin.getRank();
 				
 				if(position == 1) {
 					RatingRunnable.win = winName;
 					Arena winCuboid = ArenaManager.arenaPlayer.get(winUUID).getCuboid();
 					for(Player allPlayers : Bukkit.getOnlinePlayers()) {
 						allPlayers.teleport(winCuboid.getCenter());
-						TitleManager.sendTitle(allPlayers, "§e§lBuildBattle", "§b§lGagnant de la partie: §c§l" + winName, 40);
+						TitleManager.sendTitle(allPlayers, "§e§lBuildBattle", "§b§lGagnant de la partie: " + r.getColor() + r.getPrefix() + " " + fw.getName() , 40);
 						ScoreboardManager.scoreboardGame.get(allPlayers).setLine(2, "§6Gagnant: §d§l" + winName);
 					}
 					Bukkit.broadcastMessage("§6§m+------§e§m----------§f§m--------------------§e§m----------§6§m-----+");
 					Bukkit.broadcastMessage("");
 					Bukkit.broadcastMessage("      §7➜ §e§lRésultat:");
-					Bukkit.broadcastMessage("          §8■ §6§lGagnant: §d§l" + winName + " §8- §e§lPoints: §b" + winner.getValue());
+					Bukkit.broadcastMessage("          §8■ §6§lGagnant: " + r.getColor() + r.getPrefix() + " " + fw.getName() + " §8- §e§lPoints: §b" + winner.getValue());
 				} else if(position <= 3) {
-					Bukkit.broadcastMessage("          §8■ §6" + position + "ème: §a" + winName + " §8- §e§lPoints: §b" + winner.getValue());
+					Bukkit.broadcastMessage("          §8■ §6" + position + "ème: §a" + r.getColor() + r.getPrefix() + " " + fw.getName() + " §8- §e§lPoints: §b" + winner.getValue());
 				} else {
 					Player player = Bukkit.getPlayer(winUUID);
 					if(player != null) {

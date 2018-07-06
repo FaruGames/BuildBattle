@@ -1,8 +1,5 @@
 package net.farugames.buildbattle;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -13,8 +10,6 @@ import net.farugames.buildbattle.arenas.ArenaManager;
 import net.farugames.buildbattle.commands.StartCommand;
 import net.farugames.buildbattle.listeners.ListenerManager;
 import net.farugames.buildbattle.runnables.ScoreboardRunnable;
-import net.farugames.buildbattle.utils.ServerSendManager;
-import net.farugames.buildbattle.utils.WorldManager;
 
 public class Main extends JavaPlugin {
 	public static int MINPLAYER = 4;
@@ -36,14 +31,6 @@ public class Main extends JavaPlugin {
 	}
 
 	public void onDisable() {
-		WorldManager.deleteWorld("world");
-		File from = new File("mapreset");
-		File to = new File("world");
-		try {
-			WorldManager.copyFolder(from, to);
-		} catch (IOException e) {
-			System.err.println("Erreur lors de la copie de la map!");
-		}
 		super.onDisable();
 	}
 
@@ -59,7 +46,7 @@ public class Main extends JavaPlugin {
 		Bukkit.getScheduler().runTaskLater(instance, new Runnable() {
 			public void run() {
 				for (Player op : Bukkit.getOnlinePlayers()) {
-					ServerSendManager.sendToServer(op, "hub1");
+					op.chat("/hub");
 				}
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "stop");
 			}
