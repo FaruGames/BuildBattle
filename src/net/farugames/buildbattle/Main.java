@@ -5,11 +5,13 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.farugames.api.bungee.servers.ServerStatut;
 import net.farugames.buildbattle.arenas.Arena;
 import net.farugames.buildbattle.arenas.ArenaManager;
 import net.farugames.buildbattle.commands.StartCommand;
 import net.farugames.buildbattle.listeners.ListenerManager;
 import net.farugames.buildbattle.runnables.ScoreboardRunnable;
+import net.farugames.data.database.servers.IServer;
 
 public class Main extends JavaPlugin {
 	public static int MINPLAYER = 4;
@@ -23,7 +25,7 @@ public class Main extends JavaPlugin {
 	}
 
 	public void onEnable() {
-		System.out.println();
+		IServer.setStatut(Bukkit.getServerName(), ServerStatut.LOBBY.name());
 		new ListenerManager(this).registerListener();
 		new ScoreboardRunnable().runTaskTimer(instance, 0L, 20L);
 		getCommand("gamestart").setExecutor(new StartCommand());
