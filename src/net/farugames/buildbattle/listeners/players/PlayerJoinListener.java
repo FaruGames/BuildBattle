@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -30,38 +31,34 @@ public class PlayerJoinListener implements Listener {
 		Rank r = faruPlayer.getRank();
 
 		e.setJoinMessage(null);
-
-		/* UN STATUS AUTRE QUE LE LOBBY */
+		
 		if (!(GameStatus.isStatus(GameStatus.LOBBY))) {
-			p.kickPlayer(ChatColor.RED + "La partie est déjà  en cours.");
+			fp.kickPlayer(ChatColor.RED + "La partie est déjà en cours.");
 			return;
+			//soon arraylist spectator
 		}
-
-		p.sendMessage("");
-		p.sendMessage(Main.centerText("§f[§d?§f] Informations sur vos statistiques"));
-		p.sendMessage("");
-		p.sendMessage(Main.centerText("§eVous êtes niveau §6" + "0" + "§e."));
-		p.sendMessage("    §7Classement: §bhttps://stats.farugames.net/player/" + fp.getName());
-		p.sendMessage("");
-
-		TeamsTagsManager.setNameTag(p, r.getOrder(), r.getColor() + r.getPrefix() + " ");
+		
+		TeamsTagsManager.setNameTag(fp, r.getOrder(), r.getColor() + r.getPrefix() + " ");
+		TitleManager.sendActionBar(fp, "§2Developer: §aChocoIG");
+		new ScoreboardManager(fp).loadScoreboard();
+		
+		fp.setGameMode(GameMode.ADVENTURE);
+		fp.setMaxHealth(20);
+		fp.setHealth(20);
+		fp.setFoodLevel(20);
+		fp.getInventory().clear();
+		fp.playSound(fp.getLocation(), Sound.BLOCK_NOTE_HARP, 2F, 1F);
+		fp.teleport(new Location(Bukkit.getWorld("world"), -329.5, 137 + 2, -203.5, 90.0f, 0.0f));
+		fp.sendMessage("\n"
+				+ Main.centerText("§f[§d?§f] Information about your statistics" + "\n") 
+				+ "\n"
+				+ Main.centerText("§eYou are level §6" + "0" + "§e.") + "\n"
+				+ "    §7Ranking: §bhttps://stats.farugames.net/player/" + fp.getName() +"\n");
 
 		for (Player op : Bukkit.getOnlinePlayers()) {
 			op.sendMessage(PluginMethods.getChatPrefix() + r.getColor() + r.getPrefix() + " " + p.getName()
-					+ " §ea rejoint la partie §a(" + Bukkit.getOnlinePlayers().size() + "/" + Main.MAXPLAYER + ")");
+					+ " §ea joined the game §a(" + Bukkit.getOnlinePlayers().size() + "/" + Main.MAXPLAYER + ")");
 		}
-		TitleManager.sendActionBar(p, "§2Developer: §aEtor");
-
-		/* PARAMETRES */
-		p.setGameMode(GameMode.ADVENTURE);
-		p.setMaxHealth(20);
-		p.setHealth(20);
-		p.setFoodLevel(20);
-		p.getInventory().clear();
-		p.teleport(new Location(Bukkit.getWorld("world"), -329.5, 137 + 2, -203.5, 90.0f, 0.0f));
-		new ScoreboardManager(fp).loadScoreboard();
-
-		/* RUNNABLE */
 		if ((Bukkit.getOnlinePlayers().size() >= Main.MINPLAYER) && (!(LobbyRunnable.start))) {
 			new LobbyRunnable().runTaskTimer(Main.instance, 0L, 20L);
 			LobbyRunnable.start = true;

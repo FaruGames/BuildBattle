@@ -8,6 +8,7 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import net.farugames.api.tools.board.ScoreboardSign;
 import net.farugames.buildbattle.Main;
 import net.farugames.buildbattle.PluginMethods;
 import net.farugames.buildbattle.arenas.ArenaTheme;
