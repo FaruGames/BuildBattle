@@ -2,8 +2,6 @@
 
 ## FaruGames - Buildbattle
 
-Ce projet est privé, nous nous engageons à lancer des pousuites judiciaires pour les personnes copiant celui-ci sans autorisations des propriétaires de [**farugames.net**](http://farugames.net).
-
 ------------------------------------
 
 - Nom : Buildbattle
