@@ -2,8 +2,6 @@
 
 ## FaruGames - Buildbattle
 
-------------------------------------
-
 - Nom : Buildbattle
 - Type : Mini-Jeu
 - État : En développement
